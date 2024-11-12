@@ -207,12 +207,23 @@ public partial class AssemblyView : CodeEdit
 	private void on_file_dialog_file_selected(string path){
 		string extention = path.Substring(path.Length-2);
 		GD.Print(extention);
-		if(extention.Equals("as")){
-		path = path.Replace("/", "\\");
-		LoadAssembly(path);
-		}
-		else{
-			GD.Print("not the right extention");
+		
+		switch(OS.GetName()){
+			case "Windows":
+			if(extention.Equals("as")){
+			path = path.Replace("/", "\\");
+			LoadAssembly(path);
+			}
+			break;
+
+			case "Linux":
+			if(extention.Equals("as")){
+			LoadAssembly(path);
+			}
+			break;
 		}
 	}
+
 }
+
+
